@@ -4,6 +4,8 @@ require 'date'
 class Time #:nodoc:
   class << self
     def mock_time
+      return nil if caller[0..3].any? { |c| c  =~ /newrelic_rpm/ }
+
       mocked_time_stack_item = Timecop.top_stack_item
       mocked_time_stack_item.nil? ? nil : mocked_time_stack_item.time(self)
     end
