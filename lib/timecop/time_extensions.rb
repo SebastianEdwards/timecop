@@ -6,6 +6,7 @@ class Time #:nodoc:
     def mock_time
       return nil if caller[0..3].any? { |c| c  =~ /newrelic_rpm/ }
       return nil if caller[0..3].any? { |c| c  =~ /raygun4ruby/ }
+      return nil if caller[0..3].any? { |c| c  =~ /pusher/ }
 
       mocked_time_stack_item = Timecop.top_stack_item
       mocked_time_stack_item.nil? ? nil : mocked_time_stack_item.time(self)
